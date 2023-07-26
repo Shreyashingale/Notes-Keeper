@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+
+    const navigate = useNavigate();
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
 
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -34,6 +39,10 @@ const Register = () => {
 
         const data = await response.json();
         console.log(data)
+        if(data.status=='ok'){
+            navigate("/login", { replace: true })
+        }
+        
     }
     return (
         <div>
