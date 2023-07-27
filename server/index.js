@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors');
 const User = require('./models/userSchema')
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 require('./db/conn');
 app.use(cors())
 
@@ -13,10 +15,11 @@ app.post('/api/register', async (req, res) => {
     console.log(req.body)
 
     try {
+        const hashPassword = await bcrypt.hash(req.body.password , 10)
         await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: hashPassword,
         })
         res.json({ status: "ok" });
 
@@ -29,10 +32,10 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', async (req, res) => {
     const user = await User.findOne({
         email: req.body.email,
-        password: req.body.password
     })
-
-    if (user) {
+    if(!user)return ({status : "error"});
+    const matchPassword = await bcrypt.compare(req.body.password,user.password);
+    if (matchPassword) {
         const token = jwt.sign({
             email: user.email,
             password: user.password
@@ -65,7 +68,10 @@ app.post('/api/quote', async (req, res) => {
     try {
         const decoded = jwt.verify(token, 'secret123');
         const email = decoded.email;
-        const user = await User.updateOne({ email: email } , {$set : {quote : req.body.quote}})
+        await User.updateOne(
+			{ email: email },
+			{ $set: { quote: req.body.quote } }
+		)
         console.log(req.body.quote)
         return res.json({ status: 'ok'})
     } catch (error) {
