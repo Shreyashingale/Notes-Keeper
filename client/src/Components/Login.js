@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
 import Navigationbar from './Navigationbar';
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import loginImg from '../assets/images/loginImg.png'
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-  
+
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     }
@@ -16,8 +21,8 @@ const Register = () => {
 
     async function loginUser(event) {
         event.preventDefault()
-      const response= await fetch('http://localhost:5000/api/login', {
-            method : 'POST',
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -31,25 +36,47 @@ const Register = () => {
         )
 
         const data = await response.json();
-        if(data.user){
-            localStorage.setItem('token' , data.user);
-            alert("user login");
+        if (data.user) {
+            localStorage.setItem('token', data.user);
             window.location.href = '/dashboard'
         }
-        console.log(data)
+        else{
+            toast.warn("Please Enter Valid Credentials");
+        }
+
     }
     return (
         <div>
-            <Navigationbar/>
-            <h1>Login</h1>
-            <form onSubmit={loginUser}>
-                <label>Email</label>
-                <input onChange={handleEmailChange} type="email" />
-                <label htmlFor="">Password</label>
-                <input onChange={handlePasswordChange} type="password" />
-                <input type="submit" value="Login" />
-            </form>
-        </div>
+            <Navigationbar />
+            <ToastContainer position="top-center" />
+            <div className='mainDiv'>
+                <div>
+                    <Form onSubmit={loginUser}>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange} />
+
+                        </Form.Group>
+
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
+                            <Form.Text className="text-muted">
+                                Not Register ? <Link to="/" > Register</Link>.
+                            </Form.Text>
+                        </Form.Group>
+                        <Button variant="dark" type="submit">
+                            Login
+                        </Button>
+
+                    </Form>
+                </div>
+                <div>
+                    <img className='imgDiv' src={loginImg} alt="" />
+                </div>
+            </div>
+
+        </div >
     )
 }
 

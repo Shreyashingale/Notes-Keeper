@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Navigationbar from './Navigationbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import registerImg from '../assets/images/registerImg.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
 
     const navigate = useNavigate();
@@ -10,7 +13,6 @@ const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
 
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -40,49 +42,45 @@ const Register = () => {
         )
 
         const data = await response.json();
-        console.log(data)
         if (data.status == 'ok') {
             navigate("/login", { replace: true })
+        }
+        else{
+            toast.error("Please Enter All Input Fields!");
         }
 
     }
     return (
         <div>
             <Navigationbar />
-            <Form>
-                <Form.Group className="mb-3 ml-2" controlId="formBasicEmail">
-                <Form.Label>Name</Form.Label>
-                    <Form.Control type="email" placeholder="Enter Name" />
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                    <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
+            <ToastContainer position="top-center" />
+            <div className='mainDiv'>
+                <div>
+                    <Form onSubmit={registerUser}>
+                        <Form.Group className="mb-2 ml-50" controlId="formBasicEmail">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" placeholder="Enter Name" onChange={handleNameChange} />
+                        </Form.Group>
+                        <Form.Group className="mb-2 ml-50" controlId="formBasicEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange} />
+                        </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
-            <h1>Register</h1>
-            <form onSubmit={registerUser}>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" onChange={handlePasswordChange} />
+                        </Form.Group>
 
-                <label>Name</label>
-                <input onChange={handleNameChange} type="text" />
-                <label>Email</label>
-                <input onChange={handleEmailChange} type="email" />
-                <label htmlFor="">Password</label>
-                <input onChange={handlePasswordChange} type="password" />
-                {console.log(name)}
-                <input type="submit" value="Register" />
-            </form>
+                        <Button variant="dark" type="submit">
+                            Register
+                        </Button>
+                    </Form>
+                </div>
+                <div>
+                    <img className='imgDiv' src={registerImg} alt="" />
+                </div>
+            </div>
+
         </div>
     )
 }
