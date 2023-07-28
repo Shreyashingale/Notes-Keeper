@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Navigationbar from './Navigationbar';
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -39,6 +40,7 @@ const Register = () => {
     }
     return (
         <div>
+            <Navigationbar/>
             <h1>Login</h1>
             <form onSubmit={loginUser}>
                 <label>Email</label>

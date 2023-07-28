@@ -3,10 +3,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Register from './Components/Register'
 import Login from './Components/Login'
 import Dashboard from './Components/Dashboard'
+import './App.css'
 function App() {
   return (
     <div >

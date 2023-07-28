@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode"
+import Navigationbar from './Navigationbar';
 const Dashboard = () => {
     const navigate = useNavigate();
     const [quote, setQuote] = useState('');
@@ -63,6 +64,7 @@ const Dashboard = () => {
 
     return (
         <div>
+            <Navigationbar/>
             <div>YOUR QUOTE {quote || "No quote"} </div>
 
             <form onSubmit={handleSubmit}>;
