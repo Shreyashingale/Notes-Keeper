@@ -83,7 +83,7 @@ const Dashboard = () => {
                     <div>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-2 ml-50" controlId="formBasicEmail">
-                            <Form.Control type="text" placeholder="Enter Name" onChange={handleQuoteChange} />
+                            <Form.Control type="text" placeholder="Enter Note" onChange={handleQuoteChange} />
                         </Form.Group>
 
                         <Button variant="dark" type="submit">
