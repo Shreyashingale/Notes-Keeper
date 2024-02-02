@@ -12,7 +12,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [quote, setQuote] = useState('');
     const [value, setValue] = useState('')
-    const [userName, setUserName] = useState('')
+    const [userName, setUserName] = useState('') 
     const handleQuoteChange = (e) => {
         setValue(e.target.value)
     }
