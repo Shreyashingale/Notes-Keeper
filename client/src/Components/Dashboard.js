@@ -18,7 +18,7 @@ const Dashboard = () => {
     }
     async function populateQuote() {
 
-        const req = await fetch('http://localhost:5000/api/quote', {
+        const req = await fetch('http://notes-keeper-nine.vercel.app/api/quote', {
             headers: {
                 'x-access-token': localStorage.getItem('token')
             }
@@ -35,7 +35,7 @@ const Dashboard = () => {
     }
     async function handleSubmit(event) {
         event.preventDefault()
-        const response = await fetch('http://localhost:5000/api/quote', {
+        const response = await fetch('http://notes-keeper-nine.vercel.app/api/quote', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
