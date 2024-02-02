@@ -19,7 +19,7 @@ app.post('/api/register', async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashPassword,
-        })
+        }) 
         res.json({ status: "ok" });
 
     }
