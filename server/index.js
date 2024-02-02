@@ -7,7 +7,9 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 require('./db/conn');
-app.use(cors())
+app.use(cors({
+  origin: 'https://notes-keeper-kappa.vercel.app/'
+}));
 
 app.use(express.json())
 const PORT = process.env.PORT;
