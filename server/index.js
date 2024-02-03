@@ -7,11 +7,11 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 dotenv.config();
 require('./db/conn');
-app.use(cors({
-  origin: ['https://notes-keeper-kappa.vercel.app'],
-  methods : ["POST" , "GET"],
-  credentials : true
-}));
+// app.use(cors({
+//   origin: ['https://notes-keeper-kappa.vercel.app'],
+//   methods : ["POST" , "GET"],
+//   credentials : true
+// }));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
