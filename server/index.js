@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 require('./db/conn');
 app.use(cors({
-  origin: 'https://notes-keeper-kappa.vercel.app/'
+  origin: 'https://notes-keeper-kappa.vercel.app'
 }));
 
 app.use(express.json())
